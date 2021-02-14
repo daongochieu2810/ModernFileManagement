@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ModernFileManagement</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overview_frag_name">Overview</string>
+    <string name="details_frag_name">Details</string>
+    <string name="external_storage">External Storage</string>
+    <string name="internal_storage">Internal Storage</string>
+</resources>
