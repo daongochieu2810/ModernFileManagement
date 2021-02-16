@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.OverviewFragment">
+    <data>
+        <variable
+            name="onTitleClick"
+            type="android.view.View.OnClickListener" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/overview_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -36,10 +43,10 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/storageTypeContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:paddingVertical="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,9 +56,10 @@
             <TextView
                 android:id="@+id/internalStorageTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{onTitleClick}"
                 android:text="@string/internal_storage"
                 android:textColor="@color/white" />
 
@@ -63,21 +71,23 @@
             <TextView
                 android:id="@+id/externalStorageTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{onTitleClick}"
                 android:text="@string/external_storage"
                 android:textColor="@color/white" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/storageCardsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/storageTypeContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

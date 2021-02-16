@@ -1,34 +1,24 @@
 package com.example.modernfilemanagement.views
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.modernfilemanagement.R
+import com.example.modernfilemanagement.adapters.StorageOverviewAdapter
+import com.example.modernfilemanagement.databinding.FragmentOverviewBinding
+import com.example.modernfilemanagement.models.StorageInformation
+import com.example.modernfilemanagement.utils.OffsetHorizontal
+import com.example.modernfilemanagement.utils.ProminentLayoutManager
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [OverviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OverviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var binding: FragmentOverviewBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,23 +26,71 @@ class OverviewFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_overview, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OverviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                OverviewFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentOverviewBinding.bind(view)
+        val internalTextView = binding!!.internalStorageTitle
+        val externalTextView = binding!!.externalStorageTitle
+
+        setUpClickListeners()
+
+        val storageCardsContainer: RecyclerView = binding!!.storageCardsContainer
+        val storageInformationList: List<StorageInformation> = listOf(
+            StorageInformation(.45f, 1f, StorageInformation.StorageType.INTERNAL),
+            StorageInformation(.45f, 1f, StorageInformation.StorageType.EXTERNAL)
+        )
+        val storageOverviewAdapter = StorageOverviewAdapter(storageInformationList)
+        val layoutManager = ProminentLayoutManager(requireContext())
+        val decoration = OffsetHorizontal(requireContext())
+        storageCardsContainer.layoutManager = layoutManager
+        storageCardsContainer.adapter = storageOverviewAdapter
+        storageCardsContainer.addItemDecoration(decoration)
+
+        storageCardsContainer.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val id = (recyclerView.layoutManager as ProminentLayoutManager).currentCardId
+                if (id == 0) {
+                    internalTextView.setTextColor(Color.YELLOW)
+                    externalTextView.setTextColor(Color.WHITE)
+                } else {
+                    internalTextView.setTextColor(Color.WHITE)
+                    externalTextView.setTextColor(Color.YELLOW)
                 }
+            }
+        })
+
     }
+
+    private fun setUpClickListeners() {
+        val internalTextView = binding!!.internalStorageTitle
+        val externalTextView = binding!!.externalStorageTitle
+        val storageCardsContainer = binding!!.storageCardsContainer
+
+        val storageTypeChangeListener = object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                if ((v as TextView).text == StorageInformation.StorageType.INTERNAL.displayText) {
+                    internalTextView.setTextColor(Color.YELLOW)
+                    externalTextView.setTextColor(Color.WHITE)
+                    storageCardsContainer.smoothScrollToPosition(0)
+
+                } else {
+                    internalTextView.setTextColor(Color.WHITE)
+                    externalTextView.setTextColor(Color.YELLOW)
+                    storageCardsContainer.smoothScrollToPosition(1)
+
+                }
+            }
+        }
+        binding!!.apply {
+            onTitleClick = storageTypeChangeListener
+            executePendingBindings()
+        }
+    }
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
+    }
+
 }

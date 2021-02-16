@@ -1,7 +1,7 @@
 package com.example.modernfilemanagement.models
 
-class StorageInformation constructor(amountUsed: Float, storageType: StorageType) {
-    enum class StorageType {
-        INTERNAL, EXTERNAL
+class StorageInformation constructor(val amountUsedInPercent: Float, val totalAmount: Float, val storageType: StorageType) {
+    enum class StorageType(val displayText : String) {
+        INTERNAL("Internal Storage"), EXTERNAL("External Storage")
     }
 }

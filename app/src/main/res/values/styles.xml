@@ -3,5 +3,7 @@
     <style name="Theme.ModernFileManagement.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/mulish</item>
+        <item name="fontFamily">@font/mulish</item>
     </style>
 </resources>

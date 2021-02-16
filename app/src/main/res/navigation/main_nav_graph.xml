@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/fragment_overview">
+    app:startDestination="@id/overview_frag">
     <fragment
-        android:id="@+id/fragment_overview"
+        android:id="@+id/overview_frag"
         android:name="com.example.modernfilemanagement.views.OverviewFragment"
         tools:layout="@layout/fragment_overview"
         />
     <fragment
-        android:id="@+id/fragment_details"
+        android:id="@+id/details_frag"
         android:name="com.example.modernfilemanagement.views.DetailsFragment"
         tools:layout="@layout/fragment_details"
         />
