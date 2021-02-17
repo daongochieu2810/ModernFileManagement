@@ -10,4 +10,6 @@
     <color name="inactive">#e3e3e3</color>
     <color name="red">#E3001A</color>
     <color name="yellow">#FFD032</color>
+    <color name="light_gray">#F8F8F8</color>
+    <color name="medium_gray">#C5C5C5</color>
 </resources>

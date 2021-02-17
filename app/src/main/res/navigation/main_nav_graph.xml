@@ -4,14 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/overview_frag">
-    <fragment
+    <keep_state_fragment
         android:id="@+id/overview_frag"
         android:name="com.example.modernfilemanagement.views.OverviewFragment"
+        android:label="@string/overview_frag_name"
         tools:layout="@layout/fragment_overview"
         />
-    <fragment
+    <keep_state_fragment
         android:id="@+id/details_frag"
         android:name="com.example.modernfilemanagement.views.DetailsFragment"
+        android:label="@string/details_frag_name"
         tools:layout="@layout/fragment_details"
         />
 </navigation>

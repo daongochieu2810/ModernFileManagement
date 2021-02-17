@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ModernFileManagement.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:fontFamily">@font/mulish</item>
-        <item name="fontFamily">@font/mulish</item>
+    <style name="TextTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="TextTitleBigWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+    <style name="TextTitleMediumWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+    <style name="TextExtra" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+    <style name="TextBasic" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

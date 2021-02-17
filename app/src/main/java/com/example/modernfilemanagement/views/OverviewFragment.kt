@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.modernfilemanagement.R
 import com.example.modernfilemanagement.adapters.StorageOverviewAdapter
@@ -39,12 +40,15 @@ class OverviewFragment : Fragment() {
             StorageInformation(.45f, 1f, StorageInformation.StorageType.INTERNAL),
             StorageInformation(.45f, 1f, StorageInformation.StorageType.EXTERNAL)
         )
-        val storageOverviewAdapter = StorageOverviewAdapter(storageInformationList)
+        val storageOverviewAdapter = StorageOverviewAdapter(requireContext(), storageInformationList)
         val layoutManager = ProminentLayoutManager(requireContext())
         val decoration = OffsetHorizontal(requireContext())
+
         storageCardsContainer.layoutManager = layoutManager
         storageCardsContainer.adapter = storageOverviewAdapter
         storageCardsContainer.addItemDecoration(decoration)
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(storageCardsContainer)
 
         storageCardsContainer.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

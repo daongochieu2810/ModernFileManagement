@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/light_gray"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/side_margin"
+            >
+            <ImageView
+                android:id="@+id/imageDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/onedrive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OneDrive"
+                style="@style/TextTitle"
+                android:layout_marginStart="@dimen/side_margin"
+                app:layout_constraintStart_toEndOf="@id/imageDisplay"
+                app:layout_constraintTop_toTopOf="@id/imageDisplay"
+                />
+            <TextView
+                android:id="@+id/lastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextExtra"
+                android:text="17 April 2020"
+                android:layout_marginStart="@dimen/side_margin"
+                android:layout_marginTop="@dimen/horizontal_margin_small"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintStart_toEndOf="@id/imageDisplay"
+                />
+            <LinearLayout
+                android:id="@+id/basicInfoContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/side_margin"
+                android:layout_marginTop="@dimen/horizontal_margin_small"
+                app:layout_constraintStart_toEndOf="@id/imageDisplay"
+                app:layout_constraintTop_toBottomOf="@id/lastUpdated"
+                >
+                <TextView
+                    android:id="@+id/numFiles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/horizontal_margin_small"
+                    style="@style/TextBasic"
+                    android:text="Files: 75"
+                    />
+                <TextView
+                    android:id="@+id/numItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/horizontal_margin_small"
+                    style="@style/TextBasic"
+                    android:text="Items: 60"
+                    />
+                <TextView
+                    android:id="@+id/storageAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/horizontal_margin_small"
+                    style="@style/TextBasic"
+                    android:text="Used: 60GB"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

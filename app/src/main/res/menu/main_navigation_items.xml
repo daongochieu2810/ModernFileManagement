@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/overview_frag"
         android:title="@string/overview_frag_name"
+        android:orderInCategory="1"
+        app:showAsAction="always"
         android:icon="@drawable/ic_compass"
         />
     <item android:id="@+id/details_frag"
         android:title="@string/details_frag_name"
+        app:showAsAction="always"
+        android:orderInCategory="2"
         android:icon="@drawable/ic_details" />
 </menu>

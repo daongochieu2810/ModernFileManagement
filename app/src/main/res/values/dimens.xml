@@ -5,4 +5,7 @@
     <dimen name="offset_left">-125dp</dimen>
     <dimen name="storage_card_width">250dp</dimen>
     <dimen name="storage_card_height">400dp</dimen>
+    <dimen name="horizontal_margin_small">5dp</dimen>
+    <dimen name="header_area_height">300dp</dimen>
+    <dimen name="vertical_margin_medium">40dp</dimen>
 </resources>

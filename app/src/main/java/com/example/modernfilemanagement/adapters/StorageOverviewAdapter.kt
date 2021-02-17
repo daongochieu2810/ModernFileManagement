@@ -1,6 +1,7 @@
 package com.example.modernfilemanagement.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.SpannableString
@@ -10,20 +11,17 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.modernfilemanagement.R
 
 import com.example.modernfilemanagement.databinding.StorageOverviewCardBinding
 import com.example.modernfilemanagement.models.StorageInformation
 import com.example.modernfilemanagement.utils.SetUpPieChart
+import com.example.modernfilemanagement.views.StorageActivity
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 
-class StorageOverviewAdapter(private val storageInformationList: List<StorageInformation>) :
+class StorageOverviewAdapter(val context: Context, private val storageInformationList: List<StorageInformation>) :
     RecyclerView.Adapter<StorageOverviewAdapter.StorageOverviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StorageOverviewViewHolder {
@@ -45,10 +43,12 @@ class StorageOverviewAdapter(private val storageInformationList: List<StorageInf
         return storageInformationList.size
     }
 
-    class StorageOverviewViewHolder(
+    inner class StorageOverviewViewHolder(
         private val binding: StorageOverviewCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private val storageClickListener : View.OnClickListener = View.OnClickListener { }
+        private val storageClickListener : View.OnClickListener = View.OnClickListener {
+            context.startActivity(Intent(context, StorageActivity::class.java))
+        }
 
         fun bind(storageInfo: StorageInformation) {
             binding.apply {
@@ -58,7 +58,7 @@ class StorageOverviewAdapter(private val storageInformationList: List<StorageInf
             }
             val pieChart = SetUpPieChart().setUp(binding.pieChart)
 
-            val usedAmountEntry = PieEntry(storageInfo.amountUsedInPercent, "Used Amount")
+            val usedAmountEntry = PieEntry(storageInfo.amountUsed, "Used Amount")
             val totalAmountEntry = PieEntry(storageInfo.totalAmount, "Total Amount")
             val pieDataSet = PieDataSet(listOf(usedAmountEntry, totalAmountEntry), "")
             pieDataSet.sliceSpace = 10f
@@ -71,7 +71,7 @@ class StorageOverviewAdapter(private val storageInformationList: List<StorageInf
 
             pieChart.highlightValue(null)
             pieChart.centerText = generateCenterText(storageInfo.totalAmount.toInt().toString() +
-                    "GB\n", storageInfo.amountUsedInPercent.toString() + " used")
+                    "GB\n", storageInfo.amountUsed.toString() + " used")
             pieChart.setCenterTextSize(20f)
 
             pieChart.invalidate()
@@ -83,8 +83,11 @@ class StorageOverviewAdapter(private val storageInformationList: List<StorageInf
             s.setSpan(StyleSpan(Typeface.BOLD), 0, s1.length, 0)
             s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
 
-            s.setSpan(RelativeSizeSpan(0.8f), s1.length - 3, s.length - s1.length - 1, 0)
-            s.setSpan(StyleSpan(Typeface.NORMAL),s.length - s1.length, s.length, 0)
+            s.setSpan(RelativeSizeSpan(1f), s1.length, s.length - 5, 0)
+            s.setSpan(StyleSpan(Typeface.BOLD), s1.length, s.length - 5, 0)
+
+            s.setSpan(RelativeSizeSpan(0.8f), s.length - 5, s.length, 0)
+            s.setSpan(StyleSpan(Typeface.NORMAL),s.length - 5, s.length, 0)
             return s
         }
     }
