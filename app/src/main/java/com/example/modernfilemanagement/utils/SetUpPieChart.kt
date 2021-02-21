@@ -8,7 +8,7 @@ class SetUpPieChart {
     fun setUp(pieChart: PieChart): PieChart {
 
         pieChart.setUsePercentValues(true)
-        pieChart.setExtraOffsets(5f,10f,5f,5f)
+        pieChart.setExtraOffsets(5f,0f,5f,0f)
         pieChart.dragDecelerationFrictionCoef = 0.95f
         pieChart.isDrawHoleEnabled = true
         pieChart.setHoleColor(Color.RED)
@@ -21,12 +21,13 @@ class SetUpPieChart {
         pieChart.transparentCircleRadius = 61f
         pieChart.setDrawCenterText(true)
         pieChart.description.isEnabled = false
+        //pieChart.legend.isEnabled = false
         pieChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        pieChart.legend.orientation = Legend.LegendOrientation.VERTICAL
+        pieChart.legend.orientation = Legend.LegendOrientation.HORIZONTAL
         pieChart.legend.form = Legend.LegendForm.CIRCLE
-        pieChart.legend.formSize = 14f
-        pieChart.legend.textSize = 14f
-        pieChart.legend.yOffset = 10f
+        pieChart.legend.formSize = 12f
+        pieChart.legend.textSize = 12f
+        pieChart.legend.yOffset = 15f
         pieChart.legend.textColor = Color.WHITE
         pieChart.rotationAngle = 0f
         pieChart.isRotationEnabled = true

@@ -8,4 +8,6 @@
     <dimen name="horizontal_margin_small">5dp</dimen>
     <dimen name="header_area_height">300dp</dimen>
     <dimen name="vertical_margin_medium">40dp</dimen>
+    <dimen name="vertical_margin_small">10dp</dimen>
+    <dimen name="graph_gap">0dp</dimen>
 </resources>

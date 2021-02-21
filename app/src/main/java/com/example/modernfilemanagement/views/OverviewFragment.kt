@@ -37,8 +37,8 @@ class OverviewFragment : Fragment() {
 
         val storageCardsContainer: RecyclerView = binding!!.storageCardsContainer
         val storageInformationList: List<StorageInformation> = listOf(
-            StorageInformation(.45f, 1f, StorageInformation.StorageType.INTERNAL),
-            StorageInformation(.45f, 1f, StorageInformation.StorageType.EXTERNAL)
+            StorageInformation(.45f, 1f, 700, StorageInformation.StorageType.INTERNAL),
+            StorageInformation(.45f, 1f, 1000, StorageInformation.StorageType.EXTERNAL)
         )
         val storageOverviewAdapter = StorageOverviewAdapter(requireContext(), storageInformationList)
         val layoutManager = ProminentLayoutManager(requireContext())

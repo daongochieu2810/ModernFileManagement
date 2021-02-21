@@ -2,4 +2,5 @@
 <resources>
     <dimen name="storage_card_width">250dp</dimen>
     <dimen name="storage_card_height">400dp</dimen>
+    <dimen name="graph_gap">0dp</dimen>
 </resources>

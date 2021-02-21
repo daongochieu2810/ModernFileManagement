@@ -12,4 +12,5 @@
     <color name="yellow">#FFD032</color>
     <color name="light_gray">#F8F8F8</color>
     <color name="medium_gray">#C5C5C5</color>
+    <color name="trans_white">#46FFFFFF</color>
 </resources>

@@ -11,18 +11,24 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.modernfilemanagement.databinding.StorageOverviewCardBinding
 import com.example.modernfilemanagement.models.StorageInformation
+import com.example.modernfilemanagement.utils.AnimUtil
 import com.example.modernfilemanagement.utils.SetUpPieChart
+import com.example.modernfilemanagement.utils.StringUtil.STORAGE_INFO
 import com.example.modernfilemanagement.views.StorageActivity
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
-class StorageOverviewAdapter(val context: Context, private val storageInformationList: List<StorageInformation>) :
-    RecyclerView.Adapter<StorageOverviewAdapter.StorageOverviewViewHolder>() {
+
+class StorageOverviewAdapter(
+    val context: Context,
+    private val storageInformationList: List<StorageInformation>
+) : RecyclerView.Adapter<StorageOverviewAdapter.StorageOverviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StorageOverviewViewHolder {
         return StorageOverviewViewHolder(
@@ -35,7 +41,7 @@ class StorageOverviewAdapter(val context: Context, private val storageInformatio
     }
 
     override fun onBindViewHolder(holder: StorageOverviewViewHolder, position: Int) {
-        val storageInformation: StorageInformation = storageInformationList[position]
+        val storageInformation = storageInformationList[position]
         holder.bind(storageInformation)
     }
 
@@ -46,14 +52,20 @@ class StorageOverviewAdapter(val context: Context, private val storageInformatio
     inner class StorageOverviewViewHolder(
         private val binding: StorageOverviewCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private val storageClickListener : View.OnClickListener = View.OnClickListener {
-            context.startActivity(Intent(context, StorageActivity::class.java))
-        }
 
+        private fun getStorageClickListener(storageInfo: StorageInformation): View.OnClickListener {
+
+            return View.OnClickListener {
+                AnimUtil.scaleView(it!!, 1f, 1.2f)
+                val intent = Intent(context, StorageActivity::class.java)
+                intent.putExtra(STORAGE_INFO, storageInfo)
+                context.startActivity(intent)
+            }
+        }
         fun bind(storageInfo: StorageInformation) {
             binding.apply {
                 storageInformation = storageInfo
-                clickListener = storageClickListener
+                clickListener = getStorageClickListener(storageInfo)
                 executePendingBindings()
             }
             val pieChart = SetUpPieChart().setUp(binding.pieChart)
@@ -69,9 +81,10 @@ class StorageOverviewAdapter(val context: Context, private val storageInformatio
             pieData.setDrawValues(false)
             pieChart.data = pieData
 
-            pieChart.highlightValue(null)
-            pieChart.centerText = generateCenterText(storageInfo.totalAmount.toInt().toString() +
-                    "GB\n", storageInfo.amountUsed.toString() + " used")
+            pieChart.centerText = generateCenterText(
+                storageInfo.totalAmount.toInt().toString() +
+                        "GB\n", storageInfo.amountUsed.toString() + " used"
+            )
             pieChart.setCenterTextSize(20f)
 
             pieChart.invalidate()
@@ -87,7 +100,7 @@ class StorageOverviewAdapter(val context: Context, private val storageInformatio
             s.setSpan(StyleSpan(Typeface.BOLD), s1.length, s.length - 5, 0)
 
             s.setSpan(RelativeSizeSpan(0.8f), s.length - 5, s.length, 0)
-            s.setSpan(StyleSpan(Typeface.NORMAL),s.length - 5, s.length, 0)
+            s.setSpan(StyleSpan(Typeface.NORMAL), s.length - 5, s.length, 0)
             return s
         }
     }

@@ -4,6 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.StorageActivity">
+    <data>
+        <variable
+            name="basicStatsText"
+            type="android.text.SpannableString" />
+        <variable
+            name="numberOfItems"
+            type="android.text.SpannableString" />
+
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -65,8 +74,7 @@
                 android:id="@+id/basicStats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextTitleMediumWhite"
-                android:text="89.09GB  / 128GB"
+                android:text="@{basicStatsText}"
                 app:layout_constraintTop_toBottomOf="@+id/totalUsedTitle"
                 app:layout_constraintStart_toEndOf="@id/overview_piechart"
                 android:layout_marginStart="@dimen/side_margin"
@@ -77,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextTitleMediumWhite"
-                android:text="698 \n Items"
+                android:text="@{numberOfItems}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/totalUsedTitle"
                 app:layout_constraintBottom_toBottomOf="@+id/basicStats"
