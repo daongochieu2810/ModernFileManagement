@@ -24,68 +24,72 @@
             >
             <ImageView
                 android:id="@+id/imageDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/image_size"
+                android:layout_height="@dimen/image_size"
                 android:src="@{image}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
+
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{directory.name}"
                 style="@style/TextTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/side_margin"
+                android:text="@{directory.name}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
-                app:layout_constraintTop_toTopOf="@id/imageDisplay"
-                />
+                app:layout_constraintTop_toTopOf="@id/imageDisplay" />
+
             <TextView
                 android:id="@+id/lastUpdated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 style="@style/TextExtra"
-                android:text="@{directory.lastUpdateString}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginTop="@dimen/horizontal_margin_small"
-                app:layout_constraintTop_toBottomOf="@id/name"
+                android:text="@{directory.lastUpdateString}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
-                />
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
             <LinearLayout
                 android:id="@+id/basicInfoContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginTop="@dimen/horizontal_margin_small"
+                android:gravity="left"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
-                app:layout_constraintTop_toBottomOf="@id/lastUpdated"
-                >
+                app:layout_constraintTop_toBottomOf="@id/lastUpdated">
+
                 <TextView
                     android:id="@+id/numFiles"
+                    style="@style/TextBasic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    style="@style/TextBasic"
-                    android:text="@{directory.numFilesString}"
-                    />
+                    android:text="@{directory.numFilesString}" />
+
                 <TextView
                     android:id="@+id/numItems"
+                    style="@style/TextBasic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    style="@style/TextBasic"
-                    android:text="@{directory.numFoldersString}"
-                    />
+                    android:text="@{directory.numFoldersString}" />
+
                 <TextView
                     android:id="@+id/storageAmount"
+                    style="@style/TextBasic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    style="@style/TextBasic"
-                    android:text="@{directory.memAmountString}"
-                    />
+                    android:text="@{directory.memAmountString}" />
 
             </LinearLayout>
 

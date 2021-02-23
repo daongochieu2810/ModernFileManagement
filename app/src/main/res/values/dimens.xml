@@ -10,4 +10,5 @@
     <dimen name="vertical_margin_medium">40dp</dimen>
     <dimen name="vertical_margin_small">10dp</dimen>
     <dimen name="graph_gap">0dp</dimen>
+    <dimen name="image_size">80dp</dimen>
 </resources>

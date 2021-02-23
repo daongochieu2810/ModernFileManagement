@@ -37,4 +37,30 @@ class SetUpPieChart {
 
         return pieChart
     }
+
+    fun setUpSmall(pieChart: PieChart): PieChart {
+        pieChart.setUsePercentValues(true)
+        pieChart.setExtraOffsets(0f,0f,0f,0f)
+        pieChart.dragDecelerationFrictionCoef = 0.95f
+        pieChart.isDrawHoleEnabled = true
+        pieChart.setHoleColor(Color.BLACK)
+        pieChart.setDrawEntryLabels(false)
+
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
+
+        pieChart.holeRadius = 75f
+        pieChart.transparentCircleRadius = 61f
+        pieChart.setDrawCenterText(true)
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
+
+        pieChart.rotationAngle = 0f
+        pieChart.isRotationEnabled = true
+        pieChart.isHighlightPerTapEnabled = true
+
+        pieChart.setEntryLabelTextSize(12f)
+
+        return pieChart
+    }
 }

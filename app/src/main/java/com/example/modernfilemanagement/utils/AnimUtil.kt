@@ -12,7 +12,8 @@ object AnimUtil {
             startScale, endScale,
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f
-        ) // Pivot point of Y scaling
+        )
+
         anim.fillAfter = false
         anim.duration = 200
         v.startAnimation(anim)

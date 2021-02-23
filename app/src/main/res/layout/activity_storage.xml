@@ -11,6 +11,12 @@
         <variable
             name="numberOfItems"
             type="android.text.SpannableString" />
+        <variable
+            name="onBackClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="onFilterClick"
+            type="android.view.View.OnClickListener" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,13 +38,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/ic_left"
+                android:onClick="@{onBackClick}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
             <ImageButton
+                android:id="@+id/filter"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/ic_filter"
+                android:onClick="@{onFilterClick}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />

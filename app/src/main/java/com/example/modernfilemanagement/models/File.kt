@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class File(val name: String, val memAmount: Float): Parcelable
+open class File(open val name: String, open val memAmount: Int): Parcelable
