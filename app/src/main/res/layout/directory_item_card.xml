@@ -4,7 +4,7 @@
     <data>
         <variable
             name="directory"
-            type="com.example.modernfilemanagement.models.Directory" />
+            type="com.dnh2810.modernfilemanagement.models.DirectoryModel" />
         <variable
             name="image"
             type="android.graphics.drawable.Drawable" />
@@ -41,7 +41,7 @@
                 android:text="@{directory.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
-                app:layout_constraintTop_toTopOf="@id/imageDisplay" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/lastUpdated"
@@ -68,20 +68,12 @@
                 app:layout_constraintTop_toBottomOf="@id/lastUpdated">
 
                 <TextView
-                    android:id="@+id/numFiles"
-                    style="@style/TextBasic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/horizontal_margin_small"
-                    android:text="@{directory.numFilesString}" />
-
-                <TextView
                     android:id="@+id/numItems"
                     style="@style/TextBasic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    android:text="@{directory.numFoldersString}" />
+                    android:text="@{directory.numItemsString}" />
 
                 <TextView
                     android:id="@+id/storageAmount"

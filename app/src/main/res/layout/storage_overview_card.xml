@@ -8,7 +8,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="storageInformation"
-            type="com.example.modernfilemanagement.models.StorageInformation"/>
+            type="com.dnh2810.modernfilemanagement.models.StorageInformation"/>
     </data>
 
     <androidx.cardview.widget.CardView

@@ -6,13 +6,13 @@
     app:startDestination="@id/overview_frag">
     <keep_state_fragment
         android:id="@+id/overview_frag"
-        android:name="com.example.modernfilemanagement.views.OverviewFragment"
+        android:name="com.dnh2810.modernfilemanagement.views.OverviewFragment"
         android:label="@string/overview_frag_name"
         tools:layout="@layout/fragment_overview"
         />
     <keep_state_fragment
         android:id="@+id/details_frag"
-        android:name="com.example.modernfilemanagement.views.DetailsFragment"
+        android:name="com.dnh2810.modernfilemanagement.views.DetailsFragment"
         android:label="@string/details_frag_name"
         tools:layout="@layout/fragment_details"
         />
