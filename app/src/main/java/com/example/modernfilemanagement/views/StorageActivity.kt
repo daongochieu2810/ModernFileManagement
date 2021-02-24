@@ -2,10 +2,10 @@ package com.example.modernfilemanagement.views
 
 import java.time.LocalDate
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -14,10 +14,10 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.modernfilemanagement.R
@@ -38,15 +38,16 @@ class StorageActivity : AppCompatActivity() {
     private lateinit var storageInformation: StorageInformation
     private lateinit var storageViewModel: StorageViewModel
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_storage)
         storageInformation = intent.getParcelableExtra(STORAGE_INFO)!!
         storageViewModel = ViewModelProvider(this).get(StorageViewModel::class.java)
 
-        val basicStatsText = styleBasicStatsText(storageInformation.amountUsed.toString(),
-            storageInformation.totalAmount.toString())
+        val basicStatsText = styleBasicStatsText(
+            storageInformation.amountUsed.toString(),
+            storageInformation.totalAmount.toString()
+        )
         val numberOfItemsText = styleNumberOfItemsText(storageInformation.totalItems.toString())
 
         bind(basicStatsText, numberOfItemsText)
@@ -57,6 +58,12 @@ class StorageActivity : AppCompatActivity() {
         for (video in storageViewModel.videos) {
             Log.i("StorageActivity", video.uri.toString())
         }
+
+        /*try {
+            accessStorage("")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }*/
     }
 
     private fun bind(basicStatsText: SpannableString, numberOfItems: SpannableString) {
@@ -67,6 +74,31 @@ class StorageActivity : AppCompatActivity() {
         }
     }
 
+    private fun accessStorage(initialUri: String) {
+        // Choose a directory using the system's file picker.
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        intent.addFlags(
+            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                    or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+        )
+
+        val resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val uri = result.data!!
+                Log.i("StorageActivity", uri.toString())
+                val contentResolver = applicationContext.contentResolver
+
+                val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                contentResolver.takePersistableUriPermission(uri.data!!, takeFlags)
+            }
+        }
+        resultLauncher.launch(intent)
+    }
     private fun retrieveFiles() {
         storageViewModel.retrieveVideos()
     }
@@ -107,10 +139,18 @@ class StorageActivity : AppCompatActivity() {
         pieChart.invalidate()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun populateDirectories() {
         val directoryContainer = binding.directoryContainer
-        val directories = listOf(Directory("OneDrive", R.drawable.onedrive, listOf(), listOf(), LocalDate.now(), 50f))
+        val directories = listOf(
+            Directory(
+                "OneDrive",
+                R.drawable.onedrive,
+                listOf(),
+                listOf(),
+                LocalDate.now(),
+                50f
+            )
+        )
         val directoryAdapter = DirectoryAdapter(this, directories)
         val layoutManager =  LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
