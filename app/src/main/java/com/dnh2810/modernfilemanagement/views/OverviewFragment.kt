@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+
 import com.dnh2810.modernfilemanagement.R
 import com.dnh2810.modernfilemanagement.adapters.StorageOverviewAdapter
 import com.dnh2810.modernfilemanagement.databinding.FragmentOverviewBinding
@@ -69,19 +70,17 @@ class OverviewFragment : Fragment() {
         val externalTextView = binding!!.externalStorageTitle
         val storageCardsContainer = binding!!.storageCardsContainer
 
-        val storageTypeChangeListener = object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                if ((v as TextView).text == StorageInformation.StorageType.INTERNAL.displayText) {
-                    internalTextView.setTextColor(Color.YELLOW)
-                    externalTextView.setTextColor(Color.WHITE)
-                    storageCardsContainer.smoothScrollToPosition(0)
+        val storageTypeChangeListener = View.OnClickListener { v ->
+            if ((v as TextView).text == StorageInformation.StorageType.INTERNAL.displayText) {
+                internalTextView.setTextColor(Color.YELLOW)
+                externalTextView.setTextColor(Color.WHITE)
+                storageCardsContainer.smoothScrollToPosition(0)
 
-                } else {
-                    internalTextView.setTextColor(Color.WHITE)
-                    externalTextView.setTextColor(Color.YELLOW)
-                    storageCardsContainer.smoothScrollToPosition(1)
+            } else {
+                internalTextView.setTextColor(Color.WHITE)
+                externalTextView.setTextColor(Color.YELLOW)
+                storageCardsContainer.smoothScrollToPosition(1)
 
-                }
             }
         }
         binding!!.apply {

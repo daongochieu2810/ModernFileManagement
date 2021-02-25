@@ -1,7 +1,5 @@
 package com.dnh2810.modernfilemanagement.views
 
-import java.time.LocalDate
-
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -15,17 +13,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.dnh2810.modernfilemanagement.R
-import com.dnh2810.modernfilemanagement.adapters.DirectoryAdapter
 import com.dnh2810.modernfilemanagement.databinding.ActivityStorageBinding
-import com.dnh2810.modernfilemanagement.models.DirectoryModel
 import com.dnh2810.modernfilemanagement.models.StorageInformation
 import com.dnh2810.modernfilemanagement.utils.AnimUtils
 import com.dnh2810.modernfilemanagement.utils.SetUpPieChart
 import com.dnh2810.modernfilemanagement.utils.StringUtils.STORAGE_INFO
 import com.dnh2810.modernfilemanagement.viewmodels.StorageViewModel
+
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -60,7 +56,7 @@ class StorageActivity : AppCompatActivity() {
 
         bind(basicStatsText, numberOfItemsText)
         setUpButtonClick()
-        populateDirectories()
+        //populateDirectories()
         setUpPieChart()
         retrieveFiles()
     }
@@ -111,25 +107,6 @@ class StorageActivity : AppCompatActivity() {
         pieChart.data = pieData
 
         pieChart.invalidate()
-    }
-
-    private fun populateDirectories() {
-        val directoryContainer = binding.directoryContainer
-        val directories = listOf(
-            DirectoryModel(
-                "OneDrive",
-                R.drawable.onedrive,
-                listOf(),
-                listOf(),
-                LocalDate.now(),
-                50f
-            )
-        )
-        val directoryAdapter = DirectoryAdapter(this, directories)
-        val layoutManager =  LinearLayoutManager(this)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        directoryContainer.layoutManager = layoutManager
-        directoryContainer.adapter = directoryAdapter
     }
 
     private fun styleNumberOfItemsText(numberOfItems: String): SpannableString {

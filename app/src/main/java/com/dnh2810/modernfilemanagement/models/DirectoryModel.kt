@@ -14,16 +14,16 @@ class DirectoryModel constructor(
     private val lastUpdate: LocalDate,
     private val memAmount: Float): Parcelable {
 
-        fun getLastUpdateString(): String {
-            val dateTimeFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy")
-            return lastUpdate.format(dateTimeFormat)
-        }
-
-        fun getNumItemsString(): String {
-            return "Items: ${folders.size + fileModels.size}"
-        }
-
-        fun getMemAmountString(): String {
-            return "Used: ${memAmount.toInt()}GB"
-        }
+    fun getLastUpdateString(): String {
+        val dateTimeFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+        return lastUpdate.format(dateTimeFormat)
     }
+
+    fun getNumItemsString(): String {
+        return "Items: ${folders.size + fileModels.size}"
+    }
+
+    fun getMemAmountString(): String {
+        return "Used: ${memAmount.toInt()}GB"
+    }
+}

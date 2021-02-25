@@ -2,24 +2,23 @@ package com.dnh2810.modernfilemanagement
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-//import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+
 import com.dnh2810.modernfilemanagement.databinding.ActivityMainBinding
 import com.dnh2810.modernfilemanagement.utils.Const
 import com.dnh2810.modernfilemanagement.utils.KeepStateNavigator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    @RequiresApi(Build.VERSION_CODES.M)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
