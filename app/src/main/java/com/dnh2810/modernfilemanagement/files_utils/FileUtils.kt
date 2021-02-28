@@ -1,9 +1,11 @@
 package com.dnh2810.modernfilemanagement.files_utils
 
-import java.io.File
-
+import com.dnh2810.modernfilemanagement.R
 import com.dnh2810.modernfilemanagement.models.FileModel
 import com.dnh2810.modernfilemanagement.models.FileType
+import java.io.File
+import java.text.CharacterIterator
+import java.text.StringCharacterIterator
 
 object FileUtils {
 
@@ -21,11 +23,22 @@ object FileUtils {
 
     fun getFileModelsFromFiles(files: List<File>): List<FileModel> {
         return files.map {
-            FileModel(it.path, FileType.getFileType(it), it.name, convertFileSizeToMb(it.length()), it.extension)
+            FileModel(it.path, FileType.getFileType(it), it.name,
+                R.drawable.file_icon, it.length(),
+                it.lastModified(), it.extension, listOf())
         }
     }
 
-    private fun convertFileSizeToMb(sizeInBytes: Long): Double {
-        return (sizeInBytes.toDouble()) / (1024 * 1024)
+    fun humanReadableByteCountSI(bytes: Long): String? {
+        var bytes = bytes
+        if (-1000 < bytes && bytes < 1000) {
+            return "$bytes B"
+        }
+        val ci: CharacterIterator = StringCharacterIterator("kMGTPE")
+        while (bytes <= -999950 || bytes >= 999950) {
+            bytes /= 1000
+            ci.next()
+        }
+        return String.format("%.1f %cB", bytes / 1000.0, ci.current())
     }
 }

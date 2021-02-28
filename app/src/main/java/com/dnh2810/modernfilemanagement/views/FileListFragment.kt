@@ -1,8 +1,9 @@
 package com.dnh2810.modernfilemanagement.views
 
-import java.time.LocalDate
+import java.time.Instant
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.dnh2810.modernfilemanagement.R
-import com.dnh2810.modernfilemanagement.adapters.DirectoryAdapter
+import com.dnh2810.modernfilemanagement.adapters.FileAdapter
 import com.dnh2810.modernfilemanagement.databinding.FragmentFileListBinding
 import com.dnh2810.modernfilemanagement.files_utils.FileUtils
-import com.dnh2810.modernfilemanagement.models.DirectoryModel
+import com.dnh2810.modernfilemanagement.files_utils.FileUtils.getFileModelsFromFiles
+import com.dnh2810.modernfilemanagement.files_utils.FileUtils.getFilesFromPath
+import com.dnh2810.modernfilemanagement.models.FileModel
+import com.dnh2810.modernfilemanagement.models.FileType
 
 class FilesListFragment : Fragment() {
     private lateinit var binding: FragmentFileListBinding
@@ -62,21 +66,15 @@ class FilesListFragment : Fragment() {
     }
 
     private fun populateDirectories() {
-        val directoryContainer = binding.directoryContainer
-        val directories = listOf(
-            DirectoryModel(
-                "OneDrive",
-                R.drawable.onedrive,
-                listOf(),
-                listOf(),
-                LocalDate.now(),
-                50f
-            )
-        )
-        val directoryAdapter = DirectoryAdapter(requireContext(), directories)
+        val fileContainer = binding.fileContainer
+        val files = getFileModelsFromFiles(getFilesFromPath(path))
+        Log.d("FileListFragment", files.size.toString())
+
+        val fileAdapter = FileAdapter(requireContext(), files)
         val layoutManager =  LinearLayoutManager(requireContext())
+
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        directoryContainer.layoutManager = layoutManager
-        directoryContainer.adapter = directoryAdapter
+        fileContainer.layoutManager = layoutManager
+        fileContainer.adapter = fileAdapter
     }
 }

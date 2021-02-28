@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="directory"
-            type="com.dnh2810.modernfilemanagement.models.DirectoryModel" />
+            name="file"
+            type="com.dnh2810.modernfilemanagement.models.FileModel" />
         <variable
             name="image"
             type="android.graphics.drawable.Drawable" />
@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/side_margin"
-                android:text="@{directory.name}"
+                android:text="@{file.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginTop="@dimen/horizontal_margin_small"
-                android:text="@{directory.lastUpdateString}"
+                android:text="@{file.lastUpdateString}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageDisplay"
                 app:layout_constraintTop_toBottomOf="@id/name" />
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    android:text="@{directory.numItemsString}" />
+                    android:text="@{file.numItemsString}" />
 
                 <TextView
                     android:id="@+id/storageAmount"
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/horizontal_margin_small"
-                    android:text="@{directory.memAmountString}" />
+                    android:text="@{file.memAmountString}" />
 
             </LinearLayout>
 
