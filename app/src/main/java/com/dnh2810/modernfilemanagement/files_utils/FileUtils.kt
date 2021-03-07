@@ -1,5 +1,6 @@
 package com.dnh2810.modernfilemanagement.files_utils
 
+import android.util.Log
 import com.dnh2810.modernfilemanagement.R
 import com.dnh2810.modernfilemanagement.models.FileModel
 import com.dnh2810.modernfilemanagement.models.FileType
@@ -15,6 +16,7 @@ object FileUtils {
         onlyFolders: Boolean = false
     ): List<File> {
         val file = File(path)
+        Log.d("FileUtils", file.path + " " + file.isDirectory + " " + file.listFiles())
         return file.listFiles()!!
             .filter { showHiddenFiles || !it.name.startsWith(".") }
             .filter { !onlyFolders || it.isDirectory }

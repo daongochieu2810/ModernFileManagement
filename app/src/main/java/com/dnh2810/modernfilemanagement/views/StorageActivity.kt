@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.dnh2810.modernfilemanagement.R
 import com.dnh2810.modernfilemanagement.databinding.ActivityStorageBinding
+import com.dnh2810.modernfilemanagement.models.FileModel
+import com.dnh2810.modernfilemanagement.models.FileType
 import com.dnh2810.modernfilemanagement.models.StorageInformation
 import com.dnh2810.modernfilemanagement.utils.AnimUtils
 import com.dnh2810.modernfilemanagement.utils.SetUpPieChart
@@ -26,7 +29,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
-class StorageActivity : AppCompatActivity() {
+class StorageActivity : AppCompatActivity(), FilesListFragment.OnItemClickListener {
     private lateinit var binding: ActivityStorageBinding
     private lateinit var storageInformation: StorageInformation
     private lateinit var storageViewModel: StorageViewModel
@@ -39,12 +42,12 @@ class StorageActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             val filesListFragment = FilesListFragment.build {
-                path = Environment.getStorageDirectory().absolutePath
+                path = filesDir.absolutePath
             }
 
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, filesListFragment)
-                .addToBackStack(Environment.getStorageDirectory().absolutePath)
+                .addToBackStack(filesDir.absolutePath)
                 .commit()
         }
 
@@ -70,7 +73,34 @@ class StorageActivity : AppCompatActivity() {
     }
 
     private fun retrieveFiles() {
+        storageViewModel.retrieveVideos()
+        Log.d("StorageActivity", storageViewModel.videos.size.toString())
+        for (video in storageViewModel.videos) {
+            Log.d("StorageActivity", video.path)
+        }
+    }
 
+    override fun onClick(fileModel: FileModel) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+        if (fileModel.fileType == FileType.FOLDER) {
+            addFileFragment(fileModel)
+        }
+    }
+
+    override fun onLongClick(fileModel: FileModel) {
+        Toast.makeText(this, "Long Clicked", Toast.LENGTH_SHORT).show()
+    }
+    
+    private fun addFileFragment(fileModel: FileModel) {
+        Log.d("StorageActivity", fileModel.path)
+        val filesListFragment = FilesListFragment.build {
+            path = fileModel.path
+        }
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container, filesListFragment)
+        fragmentTransaction.addToBackStack(fileModel.path)
+        fragmentTransaction.commit()
     }
 
     private fun setUpButtonClick() {
@@ -107,6 +137,13 @@ class StorageActivity : AppCompatActivity() {
         pieChart.data = pieData
 
         pieChart.invalidate()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            finish()
+        }
     }
 
     private fun styleNumberOfItemsText(numberOfItems: String): SpannableString {

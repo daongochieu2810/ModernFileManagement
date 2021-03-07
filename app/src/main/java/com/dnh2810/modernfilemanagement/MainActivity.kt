@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -18,6 +19,7 @@ import com.dnh2810.modernfilemanagement.utils.KeepStateNavigator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,32 +33,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainBottomNavigation.setupWithNavController(navController)
 
-        val requestPermissionLauncher =
+        requestPermissionLauncher =
             registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
             ) { isGranted: Boolean ->
                 if (isGranted) {
-
+                    Log.d("MainActivity", "Permissions granted")
                 } else {
                     Toast.makeText(this, "Some features will be unavailable", Toast.LENGTH_SHORT).show()
                 }
             }
 
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-            ) == PackageManager.PERMISSION_GRANTED -> {
-
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                Toast.makeText(this, "Action not allowed", Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-                requestPermissionLauncher.launch(
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        }
+        checkPermissions(listOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_MEDIA_LOCATION
+        ))
 
         Log.d("MainActivity", Const.getScreenHeight().toString() + "  " +
                 Const.getScreenWidth().toString() + "  " + Const.getDensity().toString())
@@ -64,5 +55,24 @@ class MainActivity : AppCompatActivity() {
                 Environment.getExternalStorageDirectory() + "\nstorage " + Environment.getStorageDirectory() +
                 "\ndata " + Environment.getDataDirectory() + "\ndlcache " + Environment.getDownloadCacheDirectory()
         )*/
+    }
+
+    private fun checkPermissions(permissions: List<String>) {
+        for (permission in permissions) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    permission,
+                ) == PackageManager.PERMISSION_GRANTED -> {
+
+                }
+                shouldShowRequestPermissionRationale(permission) -> {
+                    Toast.makeText(this, "$permission not allowed", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    requestPermissionLauncher.launch(permission)
+                }
+            }
+        }
     }
 }

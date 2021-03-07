@@ -5,7 +5,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Text attrs. -->
-        <item name="fontFamily">@font/mulish</item>
+        <item name="android:textViewStyle">@style/MulishTextViewStyle</item>
+        <item name="buttonStyle">@style/MulishTextViewStyle</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/red</item>

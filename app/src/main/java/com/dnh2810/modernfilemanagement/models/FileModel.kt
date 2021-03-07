@@ -4,12 +4,11 @@ import android.os.Parcelable
 import com.dnh2810.modernfilemanagement.files_utils.FileUtils
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Parcelize
-class FileModel(
+open class FileModel(
     val path: String,
     val fileType: FileType,
     val name: String,

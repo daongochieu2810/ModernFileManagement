@@ -93,14 +93,13 @@ class StorageOverviewAdapter(
         private fun generateCenterText(s1: String, s2: String): SpannableString {
             val s = SpannableString(s1 + s2)
             s.setSpan(RelativeSizeSpan(1.7f), 0, s1.length - 3, 0)
-            s.setSpan(StyleSpan(Typeface.BOLD), 0, s1.length, 0)
+            s.setSpan(StyleSpan(Typeface.BOLD), 0, s1.length - 3, 0)
+            s.setSpan(StyleSpan(Typeface.NORMAL), s1.length - 3, s1.length, 0)
             s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
 
-            s.setSpan(RelativeSizeSpan(1f), s1.length, s.length - 5, 0)
-            s.setSpan(StyleSpan(Typeface.BOLD), s1.length, s.length - 5, 0)
+            s.setSpan(RelativeSizeSpan(1f), s1.length, s.length, 0)
+            s.setSpan(StyleSpan(Typeface.BOLD), s1.length, s.length, 0)
 
-            s.setSpan(RelativeSizeSpan(0.8f), s.length - 5, s.length, 0)
-            s.setSpan(StyleSpan(Typeface.NORMAL), s.length - 5, s.length, 0)
             return s
         }
     }

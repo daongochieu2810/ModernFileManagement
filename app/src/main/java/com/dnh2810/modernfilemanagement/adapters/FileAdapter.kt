@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.dnh2810.modernfilemanagement.databinding.FileItemCardBinding
 import com.dnh2810.modernfilemanagement.models.FileModel
+import com.dnh2810.modernfilemanagement.views.FilesListFragment
 
 class FileAdapter(val context: Context, private var fileModels: List<FileModel>):
     RecyclerView.Adapter<FileAdapter.FileViewHolder>() {
@@ -58,6 +59,15 @@ class FileAdapter(val context: Context, private var fileModels: List<FileModel>)
     fun updateData(fileModels: List<FileModel>) {
         this.fileModels = fileModels
         notifyDataSetChanged()
+    }
+
+    fun setFileClickListener(clickListener: FilesListFragment.OnItemClickListener) {
+        onClickListener = {
+            clickListener.onClick(it)
+        }
+        onLongClickListener = {
+            clickListener.onLongClick(it)
+        }
     }
 
     override fun getItemCount(): Int {

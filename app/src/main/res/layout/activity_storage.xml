@@ -61,50 +61,60 @@
                 app:layout_constraintTop_toBottomOf="@id/back"
                 app:layout_constraintStart_toStartOf="parent"
                 />
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/overview_piechart"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="@dimen/side_margin"
-                app:layout_constraintTop_toBottomOf="@id/overview_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/overview_info_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                />
-            <TextView
-                android:id="@+id/totalUsedTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_used"
-                style="@style/TextTitleMediumWhite"
-                app:layout_constraintTop_toTopOf="@id/overview_piechart"
-                app:layout_constraintStart_toEndOf="@id/overview_piechart"
-                android:layout_marginStart="@dimen/side_margin"
-                />
-            <TextView
-                android:id="@+id/basicStats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{basicStatsText}"
-                app:layout_constraintTop_toBottomOf="@+id/totalUsedTitle"
-                app:layout_constraintStart_toEndOf="@id/overview_piechart"
-                android:layout_marginStart="@dimen/side_margin"
-                android:layout_marginTop="@dimen/horizontal_margin_small"
-                />
-            <TextView
-                android:id="@+id/totalNumFiles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextTitleMediumWhite"
-                android:text="@{numberOfItems}"
+                app:layout_constraintTop_toBottomOf="@id/overview_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/totalUsedTitle"
-                app:layout_constraintBottom_toBottomOf="@+id/basicStats"
-                android:textAlignment="textEnd"
-                />
+                >
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/overview_piechart"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="@dimen/side_margin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/totalUsedTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_used"
+                    style="@style/TextTitleMediumWhite"
+                    app:layout_constraintTop_toTopOf="@id/overview_piechart"
+                    app:layout_constraintStart_toEndOf="@id/overview_piechart"
+                    android:layout_marginStart="@dimen/side_margin"
+                    />
+                <TextView
+                    android:id="@+id/basicStats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{basicStatsText}"
+                    app:layout_constraintTop_toBottomOf="@+id/totalUsedTitle"
+                    app:layout_constraintStart_toEndOf="@id/overview_piechart"
+                    android:layout_marginStart="@dimen/side_margin"
+                    android:layout_marginTop="@dimen/horizontal_margin_small"
+                    />
+                <TextView
+                    android:id="@+id/totalNumFiles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextTitleMediumWhite"
+                    android:text="@{numberOfItems}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/totalUsedTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/basicStats"
+                    android:textAlignment="textEnd"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <View
                 android:id="@+id/dummyView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vertical_margin_medium"
-                app:layout_constraintTop_toBottomOf="@id/overview_piechart"
+                app:layout_constraintTop_toBottomOf="@id/overview_info_area"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

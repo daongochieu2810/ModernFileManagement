@@ -21,4 +21,10 @@
     <style name="TextBasic" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="MulishTextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/mulish</item>
+    </style>
+    <style name="MulishButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/mulish</item>
+    </style>
 </resources>

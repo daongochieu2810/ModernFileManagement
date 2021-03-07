@@ -1,7 +1,6 @@
 package com.dnh2810.modernfilemanagement.views
 
-import java.time.Instant
-
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,11 +17,11 @@ import com.dnh2810.modernfilemanagement.files_utils.FileUtils
 import com.dnh2810.modernfilemanagement.files_utils.FileUtils.getFileModelsFromFiles
 import com.dnh2810.modernfilemanagement.files_utils.FileUtils.getFilesFromPath
 import com.dnh2810.modernfilemanagement.models.FileModel
-import com.dnh2810.modernfilemanagement.models.FileType
 
 class FilesListFragment : Fragment() {
     private lateinit var binding: FragmentFileListBinding
     private lateinit var path: String
+    private lateinit var itemClickListener: OnItemClickListener
 
     companion object {
         private const val ARG_PATH: String = "com.dnh2810.modernfilemanagement"
@@ -38,6 +37,21 @@ class FilesListFragment : Fragment() {
             args.putString(ARG_PATH, path)
             fragment.arguments = args
             return fragment
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(fileModel: FileModel)
+
+        fun onLongClick(fileModel: FileModel)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            itemClickListener = context as OnItemClickListener
+        } catch (e: Exception) {
+            throw Exception("$context should implement FilesListFragment.OnItemCLickListener")
         }
     }
 
@@ -71,6 +85,7 @@ class FilesListFragment : Fragment() {
         Log.d("FileListFragment", files.size.toString())
 
         val fileAdapter = FileAdapter(requireContext(), files)
+        fileAdapter.setFileClickListener(itemClickListener)
         val layoutManager =  LinearLayoutManager(requireContext())
 
         layoutManager.orientation = LinearLayoutManager.VERTICAL
