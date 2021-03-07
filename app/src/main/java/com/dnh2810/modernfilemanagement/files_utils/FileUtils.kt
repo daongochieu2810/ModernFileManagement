@@ -12,7 +12,7 @@ object FileUtils {
 
     fun getFilesFromPath(
         path: String,
-        showHiddenFiles: Boolean = false,
+        showHiddenFiles: Boolean = true,
         onlyFolders: Boolean = false
     ): List<File> {
         val file = File(path)
@@ -24,10 +24,12 @@ object FileUtils {
     }
 
     fun getFileModelsFromFiles(files: List<File>): List<FileModel> {
+        if (files.isEmpty()) return listOf()
+
         return files.map {
             FileModel(it.path, FileType.getFileType(it), it.name,
                 R.drawable.file_icon, it.length(),
-                it.lastModified(), it.extension, listOf())
+                it.lastModified(), it.extension, getFileModelsFromFiles(it.listFiles()?.toList() ?: listOf()))
         }
     }
 

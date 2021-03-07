@@ -42,12 +42,13 @@ class StorageActivity : AppCompatActivity(), FilesListFragment.OnItemClickListen
 
         if (savedInstanceState == null) {
             val filesListFragment = FilesListFragment.build {
-                path = filesDir.absolutePath
+                path = Environment.getStorageDirectory().absolutePath
+                Log.d("StorageActivity", path)
             }
 
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, filesListFragment)
-                .addToBackStack(filesDir.absolutePath)
+                .addToBackStack(Environment.getStorageDirectory().absolutePath)
                 .commit()
         }
 
@@ -74,10 +75,16 @@ class StorageActivity : AppCompatActivity(), FilesListFragment.OnItemClickListen
 
     private fun retrieveFiles() {
         storageViewModel.retrieveVideos()
-        Log.d("StorageActivity", storageViewModel.videos.size.toString())
-        for (video in storageViewModel.videos) {
-            Log.d("StorageActivity", video.path)
-        }
+        storageViewModel.queryRootMediaStore()
+        storageViewModel.signal.observe(this, {
+            if (it) {
+                Log.d("StorageActivity", storageViewModel.videos.size.toString())
+                for (video in storageViewModel.videos) {
+                    Log.d("StorageActivity", video.path)
+                }
+                storageViewModel.signal.postValue(false)
+            }
+        })
     }
 
     override fun onClick(fileModel: FileModel) {

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         checkPermissions(listOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_MEDIA_LOCATION
+            Manifest.permission.ACCESS_MEDIA_LOCATION,
         ))
 
         Log.d("MainActivity", Const.getScreenHeight().toString() + "  " +
