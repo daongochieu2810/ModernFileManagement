@@ -13,73 +13,37 @@
         android:id="@+id/overview_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="@dimen/side_margin"
+        android:paddingHorizontal="@dimen/side_margin"
+        android:background="?colorPrimaryVariant"
         >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="150dp"
-            android:background="@drawable/bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="@dimen/side_margin"
-            android:layout_marginRight="@dimen/side_margin"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/myface" />
-        </androidx.cardview.widget.CardView>
-
         <LinearLayout
-            android:id="@+id/storageTypeContainer"
+            android:id="@+id/topMenu"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:paddingVertical="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/button_normal_size"
+                    android:layout_height="@dimen/button_normal_size"
+                    android:background="@drawable/ic_baseline_menu_24"
+                    />
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/storage"
+                    android:textFontWeight="400"
+                    android:layout_centerInParent="true"
+                    />
 
-            <TextView
-                android:id="@+id/internalStorageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="@{onTitleClick}"
-                android:text="@string/internal_storage"
-                android:textColor="@color/white" />
-
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/externalStorageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="@{onTitleClick}"
-                android:text="@string/external_storage"
-                android:textColor="@color/white" />
-
+            </RelativeLayout>
         </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/storageCardsContainer"
             android:layout_width="match_parent"
@@ -87,7 +51,8 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/storageTypeContainer" />
+            app:layout_constraintTop_toBottomOf="@id/topMenu"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

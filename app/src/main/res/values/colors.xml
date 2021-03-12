@@ -13,4 +13,5 @@
     <color name="light_gray">#F8F8F8</color>
     <color name="medium_gray">#C5C5C5</color>
     <color name="trans_white">#46FFFFFF</color>
+    <color name="blue_gray">#F2F5F8</color>
 </resources>
