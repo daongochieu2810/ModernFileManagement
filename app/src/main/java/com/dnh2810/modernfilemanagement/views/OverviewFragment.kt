@@ -3,6 +3,7 @@ package com.dnh2810.modernfilemanagement.views
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dnh2810.modernfilemanagement.R
 import com.dnh2810.modernfilemanagement.adapters.StorageOverviewAdapter
 import com.dnh2810.modernfilemanagement.databinding.FragmentOverviewBinding
+import com.dnh2810.modernfilemanagement.files_utils.MainDocumentsProvider
 import com.dnh2810.modernfilemanagement.models.StorageInformation
 import com.dnh2810.modernfilemanagement.utils.OffsetHorizontal
 import com.dnh2810.modernfilemanagement.utils.ProminentLayoutManager
@@ -34,22 +36,15 @@ class OverviewFragment : Fragment() {
         binding = FragmentOverviewBinding.bind(view)
         setUpClickListeners()
 
-        val file = File(requireContext().getExternalFilesDir(null)!!.absolutePath)
-        Log.d("TEST", file.absolutePath)
-        val file2 = File(Environment.getExternalStorageDirectory().absolutePath)
-        Log.d("TEST", if (file2.listFiles() == null) "0" else file2.listFiles().size.toString())
-        val file3 = File(requireContext().getExternalFilesDir(null)!!.absolutePath)
-        Log.d("TEST", file3.absolutePath)
-        val file4 = File(Environment.getStorageDirectory().absolutePath)
-        Log.d("TEST", file4.absolutePath)
-        val file5 = File(Environment.getDataDirectory().absolutePath)
-        Log.d("TEST", file5.absolutePath)
-        val file6 = File(Environment.getDownloadCacheDirectory().absolutePath)
-        Log.d("TEST", file6.absolutePath)
-        val file7 = File(Environment.DIRECTORY_DOWNLOADS)
-        Log.d("TEST", file7.absolutePath)
-        val file8 = File(Environment.getRootDirectory().absolutePath)
-        Log.d("TEST", file8.absolutePath)
+        val provider = MainDocumentsProvider()
+        val rootCursor = provider.queryRoots(provider.DEFAULT_ROOT_PROJECTION)
+        Log.d("TEST OVERVIEW", "BEFORE")
+        while (rootCursor.moveToNext()) {
+            Log.d("TEST", "INDIS")
+            Log.d("TEST OVERVIEW", rootCursor.getString(rootCursor.getColumnIndex(DocumentsContract.Root.COLUMN_ROOT_ID)))
+            provider.queryChildDocuments(rootCursor.getString(rootCursor.getColumnIndex(DocumentsContract.Root.COLUMN_DOCUMENT_ID))
+                , provider.DEFAULT_DOCUMENT_PROJECTION, Bundle())
+        }
 
         val storageCardsContainer: RecyclerView = binding!!.storageCardsContainer
         val storageInformationList: List<StorageInformation> = listOf(

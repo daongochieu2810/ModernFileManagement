@@ -8,4 +8,6 @@
     <string name="internal_storage">Internal Storage</string>
     <string name="total_used">Total Used</string>
     <string name="storage">My Storage</string>
+    <string name="root_summary">root</string>
+    <string name="title">title</string>
 </resources>
