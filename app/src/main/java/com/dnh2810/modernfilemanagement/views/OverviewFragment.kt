@@ -2,6 +2,8 @@ package com.dnh2810.modernfilemanagement.views
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.dnh2810.modernfilemanagement.databinding.FragmentOverviewBinding
 import com.dnh2810.modernfilemanagement.models.StorageInformation
 import com.dnh2810.modernfilemanagement.utils.OffsetHorizontal
 import com.dnh2810.modernfilemanagement.utils.ProminentLayoutManager
+import java.io.File
 
 class OverviewFragment : Fragment() {
     private var binding: FragmentOverviewBinding? = null
@@ -29,10 +32,24 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOverviewBinding.bind(view)
-        val internalTextView = binding!!.internalStorageTitle
-        val externalTextView = binding!!.externalStorageTitle
-
         setUpClickListeners()
+
+        val file = File(requireContext().getExternalFilesDir(null)!!.absolutePath)
+        Log.d("TEST", file.absolutePath)
+        val file2 = File(Environment.getExternalStorageDirectory().absolutePath)
+        Log.d("TEST", if (file2.listFiles() == null) "0" else file2.listFiles().size.toString())
+        val file3 = File(requireContext().getExternalFilesDir(null)!!.absolutePath)
+        Log.d("TEST", file3.absolutePath)
+        val file4 = File(Environment.getStorageDirectory().absolutePath)
+        Log.d("TEST", file4.absolutePath)
+        val file5 = File(Environment.getDataDirectory().absolutePath)
+        Log.d("TEST", file5.absolutePath)
+        val file6 = File(Environment.getDownloadCacheDirectory().absolutePath)
+        Log.d("TEST", file6.absolutePath)
+        val file7 = File(Environment.DIRECTORY_DOWNLOADS)
+        Log.d("TEST", file7.absolutePath)
+        val file8 = File(Environment.getRootDirectory().absolutePath)
+        Log.d("TEST", file8.absolutePath)
 
         val storageCardsContainer: RecyclerView = binding!!.storageCardsContainer
         val storageInformationList: List<StorageInformation> = listOf(
@@ -49,44 +66,9 @@ class OverviewFragment : Fragment() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(storageCardsContainer)
 
-        storageCardsContainer.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val id = (recyclerView.layoutManager as ProminentLayoutManager).currentCardId
-                if (id == 0) {
-                    internalTextView.setTextColor(Color.YELLOW)
-                    externalTextView.setTextColor(Color.WHITE)
-                } else {
-                    internalTextView.setTextColor(Color.WHITE)
-                    externalTextView.setTextColor(Color.YELLOW)
-                }
-            }
-        })
-
     }
 
     private fun setUpClickListeners() {
-        val internalTextView = binding!!.internalStorageTitle
-        val externalTextView = binding!!.externalStorageTitle
-        val storageCardsContainer = binding!!.storageCardsContainer
-
-        val storageTypeChangeListener = View.OnClickListener { v ->
-            if ((v as TextView).text == StorageInformation.StorageType.INTERNAL.displayText) {
-                internalTextView.setTextColor(Color.YELLOW)
-                externalTextView.setTextColor(Color.WHITE)
-                storageCardsContainer.smoothScrollToPosition(0)
-
-            } else {
-                internalTextView.setTextColor(Color.WHITE)
-                externalTextView.setTextColor(Color.YELLOW)
-                storageCardsContainer.smoothScrollToPosition(1)
-
-            }
-        }
-        binding!!.apply {
-            onTitleClick = storageTypeChangeListener
-            executePendingBindings()
-        }
     }
 
     override fun onDestroy() {
