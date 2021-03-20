@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/side_margin"
-        android:paddingHorizontal="@dimen/side_margin"
         android:background="?colorPrimaryVariant"
         >
         <LinearLayout
             android:id="@+id/topMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/side_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,30 +29,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/leftDrawerButton"
                     android:layout_width="@dimen/button_normal_size"
                     android:layout_height="@dimen/button_normal_size"
                     android:background="@drawable/ic_baseline_menu_24"
                     />
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/storage"
-                    android:textFontWeight="400"
-                    android:layout_centerInParent="true"
+                <EditText
+                    android:id="@+id/searchBar"
+                    android:layout_width="220dp"
+                    android:layout_height="@dimen/button_normal_size"
+                    android:background="@drawable/rounded_bg"
+                    android:layout_alignParentEnd="true"
                     />
-
             </RelativeLayout>
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/storageCardsContainer"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/side_margin"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topMenu"
-            />
+            android:background="@drawable/rounded_top_bg"
+            >
+            <LinearLayout
+                android:id="@+id/miniTopBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_bar_height"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/storageCardsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingHorizontal="@dimen/side_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/miniTopBar"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

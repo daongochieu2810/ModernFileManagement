@@ -1,26 +1,22 @@
 package com.dnh2810.modernfilemanagement.views
 
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Environment
 import android.provider.DocumentsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 
 import com.dnh2810.modernfilemanagement.R
-import com.dnh2810.modernfilemanagement.adapters.StorageOverviewAdapter
+import com.dnh2810.modernfilemanagement.adapters.RootFolderAdapter
 import com.dnh2810.modernfilemanagement.databinding.FragmentOverviewBinding
 import com.dnh2810.modernfilemanagement.files_utils.MainDocumentsProvider
-import com.dnh2810.modernfilemanagement.models.StorageInformation
-import com.dnh2810.modernfilemanagement.utils.OffsetHorizontal
-import com.dnh2810.modernfilemanagement.utils.ProminentLayoutManager
-import java.io.File
+import com.dnh2810.modernfilemanagement.models.RootFolder
+import java.time.LocalDate
 
 class OverviewFragment : Fragment() {
     private var binding: FragmentOverviewBinding? = null
@@ -38,26 +34,26 @@ class OverviewFragment : Fragment() {
 
         val provider = MainDocumentsProvider()
         val rootCursor = provider.queryRoots(provider.DEFAULT_ROOT_PROJECTION)
-        Log.d("TEST OVERVIEW", "BEFORE")
+
         while (rootCursor.moveToNext()) {
             Log.d("TEST", "INDIS")
             Log.d("TEST OVERVIEW", rootCursor.getString(rootCursor.getColumnIndex(DocumentsContract.Root.COLUMN_ROOT_ID)))
-            provider.queryChildDocuments(rootCursor.getString(rootCursor.getColumnIndex(DocumentsContract.Root.COLUMN_DOCUMENT_ID))
+            provider.queryChildDocuments(rootCursor.getString(rootCursor.getColumnIndex(DocumentsContract.Root.COLUMN_ROOT_ID))
                 , provider.DEFAULT_DOCUMENT_PROJECTION, Bundle())
         }
 
         val storageCardsContainer: RecyclerView = binding!!.storageCardsContainer
-        val storageInformationList: List<StorageInformation> = listOf(
-            StorageInformation(.45f, 1f, 700, StorageInformation.StorageType.INTERNAL),
-            StorageInformation(.45f, 1f, 1000, StorageInformation.StorageType.EXTERNAL)
-        )
-        val storageOverviewAdapter = StorageOverviewAdapter(requireContext(), storageInformationList)
-        val layoutManager = ProminentLayoutManager(requireContext())
-        val decoration = OffsetHorizontal(requireContext())
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        val rootFolderAdapter = RootFolderAdapter(requireContext(),
+            listOf(RootFolder("hello", LocalDate.now(), 0),
+                RootFolder("hello", LocalDate.now(), 0),
+                RootFolder("hello", LocalDate.now(), 0),
+                RootFolder("hello", LocalDate.now(), 0),
+                RootFolder("hello", LocalDate.now(), 0)
+            ))
 
         storageCardsContainer.layoutManager = layoutManager
-        storageCardsContainer.adapter = storageOverviewAdapter
-        storageCardsContainer.addItemDecoration(decoration)
+        storageCardsContainer.adapter = rootFolderAdapter
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(storageCardsContainer)
 

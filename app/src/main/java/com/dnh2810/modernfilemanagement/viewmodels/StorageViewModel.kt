@@ -80,7 +80,7 @@ class StorageViewModel(application: Application) : AndroidViewModel(application)
                 // Stores column values and the contentUri in a local object
                 // that represents the media file.
                 videos += Video(contentUri.toString(), FileType.getFileType(file),
-                    file.name, R.drawable.file_icon, file.length(), file.lastModified(), file.extension, duration)
+                    file.name, R.drawable.ic_file_icon, file.length(), file.lastModified(), file.extension, duration)
 
                 Log.d("StorageViewModel", file.name + " " + folderId + " " + folderName)
             }

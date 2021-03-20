@@ -28,7 +28,7 @@ object FileUtils {
 
         return files.map {
             FileModel(it.path, FileType.getFileType(it), it.name,
-                R.drawable.file_icon, it.length(),
+                R.drawable.ic_file_icon, it.length(),
                 it.lastModified(), it.extension, getFileModelsFromFiles(it.listFiles()?.toList() ?: listOf()))
         }
     }

@@ -26,7 +26,7 @@
                 android:id="@+id/imageDisplay"
                 android:layout_width="@dimen/image_size"
                 android:layout_height="@dimen/image_size"
-                android:src="@{image}"
+                android:src="@drawable/ic_file_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -57,7 +57,7 @@ class MainDocumentsProvider: DocumentsProvider() {
 
             add(DocumentsContract.Root.COLUMN_MIME_TYPES, file.extension)
             add(DocumentsContract.Root.COLUMN_AVAILABLE_BYTES, file.freeSpace)
-            add(DocumentsContract.Root.COLUMN_ICON, R.drawable.file_icon)
+            add(DocumentsContract.Root.COLUMN_ICON, R.drawable.ic_file_icon)
         }
 
         return result
@@ -88,7 +88,7 @@ class MainDocumentsProvider: DocumentsProvider() {
         projection: Array<out String>?,
         sortOrder: String?
     ): Cursor {
-        TODO("Not yet implemented")
+        return MatrixCursor(projection)
     }
 
     override fun openDocument(
@@ -96,7 +96,7 @@ class MainDocumentsProvider: DocumentsProvider() {
         mode: String?,
         signal: CancellationSignal?
     ): ParcelFileDescriptor {
-        val file: File = File(documentId)
+        val file = File(documentId!!)
         val accessMode: Int = ParcelFileDescriptor.parseMode(mode)
 
         val isWrite: Boolean = mode!!.contains("w")
