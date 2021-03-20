@@ -1,11 +1,14 @@
 package com.dnh2810.modernfilemanagement.files_utils
 
+import android.content.Context
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.*
 import android.provider.DocumentsContract
 import android.provider.DocumentsProvider
 import android.util.Log
+import androidx.core.net.toUri
+import androidx.documentfile.provider.DocumentFile
 import com.dnh2810.modernfilemanagement.R
 import java.io.File
 import java.io.FileNotFoundException
@@ -32,6 +35,8 @@ class MainDocumentsProvider: DocumentsProvider() {
     )
 
     override fun onCreate(): Boolean {
+        val baseDir = requireContext().filesDir
+        Log.d("TEST", baseDir.absolutePath)
         return true
     }
 
@@ -69,11 +74,10 @@ class MainDocumentsProvider: DocumentsProvider() {
         queryArgs: Bundle?
     ): Cursor {
         return MatrixCursor(projection).apply {
-            val parent = File(parentDocumentId!!)
-            parent.listFiles()!!
-                .forEach { file ->
-                    Log.d("TEST DOCS", file.absolutePath)
-                }
+            val parent = DocumentFile.fromFile(File(parentDocumentId))
+            parent.listFiles().forEach { file ->
+                Log.d("TEST DOCS", file.uri.toString())
+            }
         }
     }
 

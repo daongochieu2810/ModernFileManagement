@@ -17,6 +17,12 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        def documentsAuthorityValue = applicationId + ".documents"
+        manifestPlaceholders =
+                [documentsAuthority: documentsAuthorityValue]
+        buildConfigField "String",
+                "DOCUMENTS_AUTHORITY",
+                "\"${documentsAuthorityValue}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -6,11 +6,13 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         android:elevation="0dp"
-        app:cardBackgroundColor="@color/card_light_blue"
+        android:layout_marginHorizontal="@dimen/horizontal_margin_small"
+        android:layout_marginVertical="@dimen/horizontal_margin_small"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:padding="@dimen/side_margin"
+            android:background="@color/card_light_blue"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/folderThumbnail"

@@ -23,7 +23,7 @@
     >
         <provider
             android:name="com.dnh2810.modernfilemanagement.files_utils.MainDocumentsProvider"
-            android:authorities="com.dnh2810.modernfilemanagement.documents"
+            android:authorities="${documentsAuthority}"
             android:grantUriPermissions="true"
             android:exported="true"
             android:permission="android.permission.MANAGE_DOCUMENTS">
